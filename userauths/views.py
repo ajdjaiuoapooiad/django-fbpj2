@@ -5,7 +5,7 @@ from userauths.forms import UserRegisterForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect
 
-from userauths.models import Profile
+from userauths.models import Profile, User
 
 
 
@@ -42,3 +42,30 @@ def RegisterView(request, *args, **kwargs):
     }
     
     return render(request, 'userauths/sign-up.html', context)
+
+
+
+def LoginView(request):
+    # if request.user.is_authenticated:
+    #     return redirect('core:feed')
+    
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        try:
+            user = User.objects.get(email=email)
+
+            user = authenticate(request, email=email, password=password)
+
+            if user is not None:
+                login(request, user)
+                messages.success(request, "You are Logged In")
+                return redirect('core:feed')
+            else:
+                messages.error(request, 'Username or password does not exit.')
+        
+        except:
+            messages.error(request, 'User does not exist')
+
+    return HttpResponseRedirect("/")
