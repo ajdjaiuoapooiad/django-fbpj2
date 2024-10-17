@@ -4,6 +4,7 @@ from django.contrib import messages
 from userauths.forms import UserRegisterForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth import logout
 
 from userauths.models import Profile, User
 
@@ -67,5 +68,15 @@ def LoginView(request):
         
         except:
             messages.error(request, 'User does not exist')
+        return HttpResponseRedirect("/")
+    else:
+        messages.error(request, 'Username or password does not exit.')
+        return redirect('userauths:sign-up')
+    
 
-    return HttpResponseRedirect("/")
+
+
+def LogoutView(request):
+    logout(request)
+    messages.success(request, 'You have been logged out')
+    return redirect("userauths:sign-in")
