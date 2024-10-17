@@ -151,7 +151,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 JAZZMIN_SETTINGS = {
     'site_header': "Facebook Clone",
     'site_brand': "Connecting people together...",
-    'site_logo': "images/logo.png",
+    # 'site_logo': "images/logo.png",
     'copyright':  "All Right Reserved 2023",
     "welcome_sign": "Welcome to Facebook Clone, Login Now.",
     "topmenu_links": [
