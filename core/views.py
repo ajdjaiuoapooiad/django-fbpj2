@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.core.paginator import Paginator
+from django.views.decorators.csrf import csrf_exempt
 
 from core.models import VISIBILITY, Post
 import shortuuid
@@ -21,7 +22,7 @@ def index(request):
     }
     return render(request, "core/index.html", context)
 
-
+@csrf_exempt
 def create_post(request):
 
     if request.method == 'POST':
