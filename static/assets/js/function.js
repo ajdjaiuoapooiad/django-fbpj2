@@ -155,3 +155,35 @@
       
     });
 });
+
+//   LIke Post
+$(document).on("click", "#like-btn", function(){
+    let btn_val = $(this).attr("data-like-btn")
+    console.log(btn_val);
+
+    $.ajax({
+        url: "/like-post/",
+        dataType: "json",
+        data:{
+            "id":btn_val
+        },
+        success: function(response){
+            if (response.data.bool === true) {
+                console.log("Liked");
+                console.log(response.data.likes);
+                $("#like-count"+btn_val).text(response.data.likes)
+                $(".like-btn"+btn_val).addClass("text-blue-500")
+                $(".like-btn"+btn_val).removeClass("text-black")
+            }else {
+                console.log("Unliked");
+                console.log(response.data.likes);
+                $("#like-count"+btn_val).text(response.data.likes)
+                $("#like-count"+btn_val).text(response.data.likes)
+                $(".like-btn"+btn_val).addClass("text-black")
+                $(".like-btn"+btn_val).removeClass("text-blue-500")
+
+            }
+            console.log(response.data.bool);
+        }
+    })
+})
