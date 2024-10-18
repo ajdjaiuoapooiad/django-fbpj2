@@ -3,10 +3,11 @@ from django.shortcuts import render
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 
-from core.models import VISIBILITY, Post
+from core.models import Post
 import shortuuid
 from django.utils.text import slugify
 from django.utils.timesince import timesince
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -14,6 +15,7 @@ from django.utils.timesince import timesince
 
 
 
+@login_required
 def index(request):
     posts = Post.objects.filter(active=True, visibility="Everyone")
 
@@ -54,4 +56,27 @@ def create_post(request):
             return JsonResponse({'error': 'Invalid post data'})
 
     return JsonResponse({"data":"Sent"})
+
+
+
+@csrf_exempt
+def like_post(request):
+
+    id = request.GET['id']
+    post = Post.objects.get(id=id)
+    user = request.user
+    bool = False 
+
+    if user in post.likes.all():
+        post.likes.remove(user)
+        bool = False
+    else:
+        post.likes.add(user)
+        bool = True 
+        
+    data = {
+        "bool":bool,
+        'likes':post.likes.all().count()
+    }
+    return JsonResponse({"data":data})
 
