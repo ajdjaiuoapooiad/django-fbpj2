@@ -48,6 +48,10 @@ class Post(models.Model):
     def __str__(self):
         return self.title
     
+    class Meta:
+        ordering = ["-date"]
+        verbose_name_plural = "Post"
+    
     def save(self, *args, **kwargs):
         uuid_key = shortuuid.uuid()
         uniqueid = uuid_key[:4]
