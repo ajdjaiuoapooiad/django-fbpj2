@@ -11,7 +11,7 @@ class GalleryAdminTab(admin.TabularInline):
 
 class PostAdmin(admin.ModelAdmin):
     inlines = [GalleryAdminTab]
-    list_editable = ['title']
+    list_editable = ['title','visibility']
     list_display = ['thumbnail', 'user', 'title', 'visibility']
     prepopulated_fields = {"slug": ("title", )}
     
