@@ -142,6 +142,14 @@ AUTH_USER_MODEL = 'userauths.User'
 
 
 
+
+# 
+LOGIN_REDIRECT_URL = ''
+LOGIN_URL = 'userauths:sign-up'
+LOGOUT_REDIRECT_URL = "userauths:sign-up"
+
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
