@@ -187,3 +187,61 @@ $(document).on("click", "#like-btn", function(){
         }
     })
 })
+
+
+// Comment on post
+$(document).on("click", "#comment-btn", function(){
+    let id = $(this).attr("data-comment-btn")
+    let comment = $("#comment-input"+id).val()
+
+    console.log(id);
+    console.log(comment);
+
+    $.ajax({
+        url: "/comment-post/",
+        dataType: "json",
+        data:{
+            "id":id,
+            "comment":comment,
+        },
+        success: function(res){
+
+            let newComment = '<div class="flex card shadow p-2" id="comment-div'+res.data.comment_id+'">\
+                    <div class="w-10 h-10 rounded-full relative flex-shrink-0">\
+                        <img src="' + res.data.profile_image + '" alt="" class="absolute h-full rounded-full w-full">\
+                    </div>\
+                    <div>\
+                        <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100 flex items-center">\
+                            <p class="leading-6 flex-grow">'+res.data.comment+'</p>\
+                                <button class="ml-auto text-xs ml-3 mr-3" id="delete-comment" data-delete-comment="'+res.data.comment_id+'"> <i class="fas fa-trash text-red-500"></i> </button>\
+                        </div>\
+                        <div class="text-sm flex items-center space-x-3 mt-2 ml-5">\
+                            <a id="like-comment-btn" data-like-comment="'+res.data.comment_id+'" class="like-comment'+res.data.comment_id+' text-red-500" style="color: gray;" > <i id="comment-icon'+res.data.comment_id+'" class=" fas fa-heart  "></i></a> <small><span class="" id="comment-likes-count'+res.data.comment_id+'">0</span></small>\
+                            <details >\
+                                <summary><div class="">Reply</div></summary>\
+                                <details-menu role="menu" class="origin-topf-right relative right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">\
+                                    <div class="pyf-1" role="none">\
+                                        <div method="POST" class="p-1 d-flex" action="#" role="none">\
+                                            <input type="text" class="with-border" name="" id="reply-input'+res.data.comment_id+'">\
+                                            <button id="reply-comment-btn" data-reply-comment-btn="'+res.data.comment_id+'" class="block w-fulfl text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 reply-comment-btn'+res.data.comment_id+'" role="menuitem">\
+                                            <ion-icon name="send"></ion-icon>\
+                                        </button>\
+                                        </div>\
+                                    </div>\
+                                </details-menu>\
+                            </details>\
+                            <span> <small>' + res.data.date + ' ago</small> </span>\
+                        </div>\
+                        <div class="reply-div'+res.data.comment_id+'">\
+                        </div>\
+                    </div>\
+                </div>\
+            '
+            $("#comment-div"+id).prepend(newComment);
+            $("#comment-count"+id).text(res.data.comment_count);
+            $("#comment-input"+id).val("")
+            
+            console.log(response.data.bool);
+        }
+    })
+})
