@@ -96,6 +96,7 @@ class FriendRequest(models.Model):
         return f"{self.sender}"
     
     class Meta:
+        ordering = ["-date"]
         verbose_name_plural = "Friend Request"
 
 class Friend(models.Model):
@@ -108,6 +109,7 @@ class Friend(models.Model):
         return f"{self.user.username}"
     
     class Meta:
+        ordering = ["-date"]
         verbose_name_plural = "Friend"
         
 
@@ -124,6 +126,7 @@ class Comment(models.Model):
         return self.user.username
     
     class Meta:
+        ordering = ["-date"]
         verbose_name_plural = "Comment"
         
 
@@ -139,6 +142,7 @@ class ReplyComment(models.Model):
         return self.user.username
     
     class Meta:
+        ordering = ["-date"]
         verbose_name_plural = "Reply Comment"
         
         
