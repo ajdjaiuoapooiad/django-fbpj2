@@ -236,15 +236,16 @@ $(document).on("click", "#comment-btn", function(){
                         </div>\
                     </div>\
                 </div>\
-            '
+            ';
             $("#comment-div"+id).prepend(newComment);
             $("#comment-count"+id).text(res.data.comment_count);
             $("#comment-input"+id).val("")
             
-            console.log(response.data.bool);
+            console.log(res.data.bool);
         }
-    })
-})
+    });
+});
+
 
 
 //   LIke Comment
@@ -278,6 +279,47 @@ $(document).on("click", "#like-comment-btn", function(){
 
 
             }
+        }
+    })
+})
+
+
+
+// Reply Comment
+$(document).on("click", "#reply-comment-btn", function(){
+    let id = $(this).attr("data-reply-comment-btn")
+    let reply = $("#reply-input"+id).val()
+
+    console.log(id);
+    console.log(reply);
+
+    $.ajax({
+        url: "/reply-comment/",
+        dataType: "json",
+        data:{
+            "id":id,
+            "reply":reply,
+        },
+        success: function(res){
+
+            let newReply = ' <div class="flex mr-12 mb-2 mt-2" style="margin-right: 20px;">\
+                <div class="w-10 h-10 rounded-full relative flex-shrink-0">\
+                    <img src="'+res.data.profile_image+'" style="width: 40px; height: 40px;" alt="" class="absolute h-full rounded-full w-full">\
+                </div>\
+                <div>\
+                    <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">\
+                        <p class="leading-6">'+ res.data.reply +'</p>\
+                        <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>\
+                    </div>\
+                    <span> <small>'+ res.data.date +' ago</small> </span>\
+                    \
+                </div>\
+            </div>\
+            '
+            $(".reply-div"+id).prepend(newReply);
+            $("#reply-input"+id).val("")
+            
+            console.log(res.data.bool);
         }
     })
 })
