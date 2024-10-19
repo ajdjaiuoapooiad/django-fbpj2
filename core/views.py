@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 
-from core.models import Comment, Post
+from core.models import Comment, Post, ReplyComment
 import shortuuid
 from django.utils.text import slugify
 from django.utils.timesince import timesince
@@ -132,3 +132,28 @@ def like_comment(request):
     return JsonResponse({"data":data})
 
 
+@csrf_exempt
+def reply_comment(request):
+
+    id = request.GET['id']
+    reply = request.GET['reply']
+
+    comment = Comment.objects.get(id=id)
+    user = request.user
+
+    new_reply = ReplyComment.objects.create(
+        comment=comment,
+        reply=reply,
+        user=user
+    )
+
+    
+    data = {
+        "bool":True,
+        'reply':new_reply.reply,
+        "profile_image":new_reply.user.profile.image.url,
+        "date":timesince(new_reply.date),
+        "reply_id":new_reply.id,
+        "post_id":new_reply.comment.post.id,
+    }
+    return JsonResponse({"data":data})
