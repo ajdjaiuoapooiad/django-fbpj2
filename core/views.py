@@ -157,3 +157,17 @@ def reply_comment(request):
         "post_id":new_reply.comment.post.id,
     }
     return JsonResponse({"data":data})
+
+
+
+@csrf_exempt
+def delete_comment(request):
+    id = request.GET['id']
+    
+    comment = Comment.objects.get(id=id, user=request.user)
+    comment.delete()
+
+    data = {
+        "bool":True,
+    }
+    return JsonResponse({"data":data})
