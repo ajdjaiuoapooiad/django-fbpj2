@@ -245,3 +245,39 @@ $(document).on("click", "#comment-btn", function(){
         }
     })
 })
+
+
+//   LIke Comment
+$(document).on("click", "#like-comment-btn", function(){
+    let id = $(this).attr("data-like-comment")
+    console.log(id);
+
+    $.ajax({
+        url: "/like-comment/",
+        dataType: "json",
+        data:{
+            "id":id
+        },
+        success: function(response){
+            console.log(response.data.bool);
+            console.log(response.data.likes);
+
+            if (response.data.bool === true) {
+
+                $("#comment-likes-count"+id).text(response.data.likes)
+                $(".like-comment"+id).css("color", "red")
+
+            }else {
+                console.log("Unliked");
+                console.log(response.data.likes);
+                $("#comment-likes-count"+id).text(response.data.likes)
+                $('#comment-icon'+id).removeClass(' text-red-600 ');
+                console.log($('.comment-icon'+id));
+                $("#comment-likes-count"+id).removeClass(' text-red-600 ');
+                $(".like-comment"+id).css("color", "gray")
+
+
+            }
+        }
+    })
+})
