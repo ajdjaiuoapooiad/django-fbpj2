@@ -345,10 +345,11 @@
                                     </div>
                                     
                                     
-                                    {% if p.post_comments.count < 1 %}
-                                    <a href="#" class="hover:text-blue-600 hover:underline">No more Comments </a>
+                                    
+                                    {% if p.post_comments.count > 0 %}
+                                    <a href="{% url 'core:post-detail' p.slug %}" class="hover:text-blue-600 hover:underline">  View {{p.post_comments.count}} more Comments </a>
                                     {% else %}
-                                    <a href="" class="hover:text-blue-600 hover:underline">  View {{p.post_comments.count}} more Comments </a>
+                                    <a href="#" class="hover:text-blue-600 hover:underline">No more Comments </a>
                                     {% endif %}
                                         
 
@@ -361,6 +362,7 @@
                                         </div>
                                     </div>
 
+                                    
                                 </div>
 
                             </div>
@@ -813,7 +815,7 @@
 
             </div>
         </div>
-    </div>q\
+    </div>
 
     <!-- story-preview -->
     <div class="story-prev">

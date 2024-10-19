@@ -24,6 +24,22 @@ def index(request):
     }
     return render(request, "core/index.html", context)
 
+
+@login_required
+def post_detail(request, slug):
+    post = Post.objects.get(active=True, visibility="Everyone", slug=slug)
+    context = {
+        "p":post
+    }
+    return render(request, "core/post-detail.html", context)
+
+
+
+
+
+
+
+
 @csrf_exempt
 def create_post(request):
 
