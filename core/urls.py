@@ -6,7 +6,7 @@ app_name = "core"
 
 urlpatterns = [
     path('', views.index,name='feed'),
-    path("<slug:slug>/", views.post_detail, name="post-detail"),
+    path("post/<slug:slug>/", views.post_detail, name="post-detail"),
 
     
     # Ajax URL
