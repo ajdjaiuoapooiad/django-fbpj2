@@ -1,12 +1,14 @@
 
 from django.shortcuts import redirect, render
 from django.contrib import messages
+from core.models import Post
 from userauths.forms import UserRegisterForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import logout
 
 from userauths.models import Profile, User
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -79,3 +81,17 @@ def LogoutView(request):
     logout(request)
     messages.success(request, 'You have been logged out')
     return redirect("userauths:sign-up")
+
+
+
+@login_required
+def my_profile(request):
+    profile = request.user.profile
+    posts = Post.objects.filter(active=True, user=request.user)
+
+    context = {
+        "posts":posts,
+        "profile":profile,
+    }
+    return render(request, "userauths/my-profile.html", context)
+
