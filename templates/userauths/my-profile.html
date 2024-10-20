@@ -49,7 +49,7 @@
                     <nav class="responsive-nav pl-3">
                         <ul uk-switcher="connect: #timeline-tab; animation: uk-animation-fade">
                             <li><a href="#">Timeline</a></li>
-                            <li><a href="#">Friend <span>3,243</span> </a></li>
+                            <li><a href="#">Friend <span>{{request.user.profile.friends.all.count}}</span> </a></li>
                             <li><a href="#">Photoes </a></li>
                             <li><a href="#">Pages</a></li>
                             <li><a href="#">Groups</a></li>
@@ -489,115 +489,28 @@
                 <!-- Friends  -->
                 <div class="card md:p-6 p-2 max-w-3xl mx-auto">
 
-                    <h2 class="text-xl font-bold"> Friends</h2>
+                    <h2 class="text-xl font-bold">All Friends</h2>
 
-                    <nav class="responsive-nav border-b">
-                        <ul>
-                            <li class="active"><a href="#" class="lg:px-2"> All Friends <span> 3,4510 </span> </a></li>
-                            <li><a href="#" class="lg:px-2"> Recently added </a></li>
-                            <li><a href="#" class="lg:px-2"> Family </a></li>
-                            <li><a href="#" class="lg:px-2"> University </a></li>
-                        </ul>
-                    </nav>
+                    
 
                     <div class="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-x-2 gap-y-4 mt-3">
 
+                        
+                        {% for f in profile.friends.all %}
                         <div class="card p-2">
-                            <a href="timeline.html">
-                                <img src="{% static 'assets/images/avatars/avatar-2.jpg' %}" class="h-36 object-cover rounded-md shadow-sm w-full">
+                            <a href="">
+                                <img src="{{f.profile.image.url}}" class="h-36 object-cover rounded-md shadow-sm w-full">
                             </a>
                             <div class="pt-3 px-1">
-                                <a href="timeline.html" class="text-base font-semibold mb-0.5">  James Lewis </a>
-                                <p class="font-medium text-sm">843K Following </p>
+                                <a href="" class="text-base font-semibold mb-0.5">  {{f.profile.full_name|title}} </a>
+                                <p class="font-medium text-sm">{{f.profile.friends.all.count}} Friends </p>
                                 <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1">
-                                    Following
+                                    Follow
                                 </button>
                             </div>
                         </div>
-                        <div class="card p-2">
-                            <a href="timeline.html">
-                                <img src="{% static 'assets/images/avatars/avatar-3.jpg' %}" class="h-36 object-cover rounded-md shadow-sm w-full">
-                            </a>
-                            <div class="pt-3 px-1">
-                                <a href="timeline.html" class="text-base font-semibold mb-0.5"> Monroe Parker  </a>
-                                <p class="font-medium text-sm">843K Following </p>
-                                <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1">
-                                    Following
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card p-2">
-                            <a href="timeline.html">
-                                <img src="{% static 'assets/images/avatars/avatar-4.jpg' %}" class="h-36 object-cover rounded-md shadow-sm w-full">
-                            </a>
-                            <div class="pt-3 px-1">
-                                <a href="timeline.html" class="text-base font-semibold mb-0.5">  Martin Gray  </a>
-                                <p class="font-medium text-sm">843K Following </p>
-                                <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1">
-                                    Following
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card p-2">
-                            <a href="timeline.html">
-                                <img src="{% static 'assets/images/avatars/avatar-7.jpg' %}" class="h-36 object-cover rounded-md shadow-sm w-full">
-                            </a>
-                            <div class="pt-3 px-1">
-                                <a href="timeline.html" class="text-base font-semibold mb-0.5">  Alex Michael </a>
-                                <p class="font-medium text-sm">843K Following </p>
-                                <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1">
-                                    Following
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card p-2">
-                            <a href="timeline.html">
-                                <img src="{% static 'assets/images/avatars/avatar-5.jpg' %}" class="h-36 object-cover rounded-md shadow-sm w-full">
-                            </a>
-                            <div class="pt-3 px-1">
-                                <a href="timeline.html" class="text-base font-semibold mb-0.5"> Jesse Stevens  </a>
-                                <p class="font-medium text-sm">843K Following </p>
-                                <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1">
-                                    Following
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card p-2">
-                            <a href="timeline.html">
-                                <img src="{% static 'assets/images/avatars/avatar-6.jpg' %}" class="h-36 object-cover rounded-md shadow-sm w-full">
-                            </a>
-                            <div class="pt-3 px-1">
-                                <a href="timeline.html" class="text-base font-semibold mb-0.5"> Erica Jones  </a>
-                                <p class="font-medium text-sm">843K Following </p>
-                                <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1">
-                                    Following
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card p-2">
-                            <a href="timeline.html">
-                                <img src="{% static 'assets/images/avatars/avatar-2.jpg' %}" class="h-36 object-cover rounded-md shadow-sm w-full">
-                            </a>
-                            <div class="pt-3 px-1">
-                                <a href="timeline.html" class="text-base font-semibold mb-0.5">  James Lewis </a>
-                                <p class="font-medium text-sm">843K Following </p>
-                                <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1">
-                                    Following
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card p-2">
-                            <a href="timeline.html">
-                                <img src="{% static 'assets/images/avatars/avatar-3.jpg' %}" class="h-36 object-cover rounded-md shadow-sm w-full">
-                            </a>
-                            <div class="pt-3 px-1">
-                                <a href="timeline.html" class="text-base font-semibold mb-0.5"> Monroe Parker  </a>
-                                <p class="font-medium text-sm">843K Following </p>
-                                <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1">
-                                    Following
-                                </button>
-                            </div>
-                        </div>
+                        {% endfor %}
+                        
 
                     </div>
 
@@ -1465,15 +1378,6 @@
         })(window, document);
     </script>
 
-    <!-- Javascript
-    ================================================== -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="{% static 'assets/js/tippy.all.min.js' %}"></script>
-    <script src="{% static 'assets/js/uikit.js' %}"></script>
-    <script src="{% static 'assets/js/simplebar.js' %}"></script>
-    <script src="{% static 'assets/js/custom.js' %}"></script>
-    <script src="{% static 'assets/js/bootstrap-select.min.js' %}"></script>
-    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
 
 
 {% endblock content %}    
