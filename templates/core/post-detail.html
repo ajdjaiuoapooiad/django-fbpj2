@@ -9,6 +9,20 @@
     summary::marker {
     content: ""; /* Hide the pseudo-element */
     }
+
+
+::-webkit-scrollbar{
+    width: 1px;
+}
+::-webkit-scrollbar-track{
+    background-color: #ededed;
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: #d0e5ff;
+    border-radius: 10px;
+}
+
 </style>
 
 <body>
@@ -294,7 +308,7 @@
 
 
 
-                                                <!-- Reply   -----------------––––––––––––––––––––––––-->
+                        <!-- Reply   -----------------––––––––––––––––––––––––-->
                                                         <details >
                                                             <summary><div class="">Reply</div></summary>
                                                     
@@ -313,7 +327,7 @@
                                             </div>
                                             <div class="reply-div{{c.id}}">
                                                 
-                                                {% for r in c.comment_replies|slice:1 %}
+                                                {% for r in c.comment_replies %}
                                                     <div class="flex mr-12 mb-2 mt-2" style="margin-right: 20px;">
                                                         <div class="w-10 h-10 rounded-full relative flex-shrink-0">
                                                             <img src="{{r.user.profile.image.url}}" style="width: 40px; height: 40px;" alt="" class="absolute h-full rounded-full w-full">

@@ -273,10 +273,10 @@
 
 
 
-                                    <!-- post-comment ---------------------------------->
+                        <!-- post-comment               ---------------------------------->
                                     <div class="border-t py-4 space-y-4 dark:border-gray-600" id="comment-div{{p.id}}">
                                         
-                                        {% for c in p.post_comments %}
+                                        {% for c in p.post_comments|slice:2 %}
                                         <div class="flex card shadow p-2" id="comment-div{{c.id}}">
                                             <div class="w-10 h-10 rounded-full relative flex-shrink-0">
                                                 <img src="{{c.user.profile.image.url}}" alt="" class="absolute h-full rounded-full w-full">
@@ -296,7 +296,7 @@
 
 
 
-                                                    <!-- Reply   -----------------––––––––––––––––––––––––-->
+                            <!-- Reply   -----------------––––––––––––––––––––––––-->
                                                           <details >
                                                                 <summary><div class="">Reply</div></summary>
                                                         
