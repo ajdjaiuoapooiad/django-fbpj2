@@ -160,7 +160,7 @@ def reply_comment(request):
     new_reply = ReplyComment.objects.create(
         comment=comment,
         reply=reply,
-        user=user
+        user=user,
     )
 
     
@@ -171,6 +171,7 @@ def reply_comment(request):
         "date":timesince(new_reply.date),
         "reply_id":new_reply.id,
         "post_id":new_reply.comment.post.id,
+
     }
     return JsonResponse({"data":data})
 
