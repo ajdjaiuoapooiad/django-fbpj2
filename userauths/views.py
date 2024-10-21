@@ -95,3 +95,15 @@ def my_profile(request):
     }
     return render(request, "userauths/my-profile.html", context)
 
+
+
+@login_required
+def friend_profile(request, username):
+    profile = Profile.objects.get(user__username=username)
+    posts = Post.objects.filter(active=True, user=profile.user)
+
+    context = {
+        "posts":posts,
+        "profile":profile,
+    }
+    return render(request, "userauths/friend-profile.html", context)
