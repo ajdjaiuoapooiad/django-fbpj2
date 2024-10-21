@@ -1,7 +1,7 @@
 
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from core.models import Post
+from core.models import FriendRequest, Post
 from userauths.forms import UserRegisterForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect
@@ -102,8 +102,32 @@ def friend_profile(request, username):
     profile = Profile.objects.get(user__username=username)
     posts = Post.objects.filter(active=True, user=profile.user)
 
+    # Send Friend Request Feature
+    bool = False
+    bool_friend = False
+
+    sender = request.user
+    receiver = profile.user
+    bool_friend = False
+    print("========================  Add or cancel")
+    try:
+        friend_request = FriendRequest.objects.get(sender=sender, receiver=receiver)
+        if friend_request:
+            bool = True
+        else:
+            bool = False
+    except:
+        bool = False
+    
+
+    # End Send Friend Request Feature
+    print("Bool =======================", bool)
+    
+
     context = {
         "posts":posts,
         "profile":profile,
+        "bool_friend":bool_friend,
+        "bool":bool,
     }
     return render(request, "userauths/friend-profile.html", context)

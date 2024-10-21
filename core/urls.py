@@ -16,6 +16,6 @@ urlpatterns = [
     path("like-comment/", views.like_comment, name="like-comment"),
     path("reply-comment/", views.reply_comment, name="reply-comment"),
     path("delete-comment/", views.delete_comment, name="delete-comment"),
-
+    path("add-friend/", views.add_friend, name="add-friend"),
 
 ]
