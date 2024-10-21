@@ -9,5 +9,6 @@ urlpatterns = [
     path("sign-out/", views.LogoutView, name="sign-out"),
 
     path("my-profile/", views.my_profile, name="my-profile"),
+    path("profile/<username>/", views.friend_profile, name="profile"),
 
 ]
