@@ -323,3 +323,31 @@ $(document).on("click", "#reply-comment-btn", function(){
         }
     })
 })
+
+
+// Add Friend
+$(document).on("click", "#add-friend", function(){
+    let id = $(this).attr("data-friend-id")
+    console.log(id);
+
+    $.ajax({
+        url: "/add-friend/",
+        dataType: "json",
+        data:{
+            "id":id
+        },
+        success: function(response){
+            console.log("Bool ==",response.bool);
+            if (response.bool == true) {
+                $("#friend-text").html("<i class='fas fa-user-minus'></i> Cancel Request ")
+                $(".add-friend"+id).addClass("bg-red-600")
+                $(".add-friend"+id).removeClass("bg-blue-600")
+            }
+            if (response.bool == false) {
+                $("#friend-text").html("<i class='fas fa-user-plus'></i> Add Friend ")
+                $(".add-friend"+id).addClass("bg-blue-600")
+                $(".add-friend"+id).removeClass("bg-red-600")
+            }
+        }
+    })
+})
