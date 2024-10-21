@@ -61,7 +61,7 @@
                     <div class="flex items-center space-x-1.5 flex-shrink-0 pr-4 mb-2 justify-center order-1 relative">
 
                         {% if profile.user in request.user.profile.friends.all %}
-                        <a href="{% url 'core:inbox_detail' profile.user.username %}" class="flex items-center justify-center h-10 px-5 rounded-md bg-blue-600 text-white space-x-1.5 hover:text-white " > 
+                        <a href="" class="flex items-center justify-center h-10 px-5 rounded-md bg-blue-600 text-white space-x-1.5 hover:text-white " > 
                             <span style="cursor: pointer;" class="text-white" id="unfriend-text"><i class="fas fa-envelope"></i> Send Message </span>
                         </a>
                         <a id="unfriend"  data-friend-id="{{profile.user.id}}" class="flex items-center justify-center h-10 px-5 rounded-md bg-red-600 text-white space-x-1.5 hover:text-white unfriend{{profile.user.id}}" > 
