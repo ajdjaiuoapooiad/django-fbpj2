@@ -18,5 +18,9 @@ urlpatterns = [
     path("delete-comment/", views.delete_comment, name="delete-comment"),
     path("add-friend/", views.add_friend, name="add-friend"),
     path("accept-friend-request/", views.accept_friend_request, name="accept-friend-request"),
+    path("reject-friend-request/", views.reject_friend_request, name="reject-friend-request"),
+    path("unfriend/", views.unfriend, name="unfriend"),
+
+
 
 ]

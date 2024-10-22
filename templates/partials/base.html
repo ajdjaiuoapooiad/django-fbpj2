@@ -275,7 +275,7 @@
                         <!-- Notification  -------------->
                         <a href="#" class="is_icon" uk-tooltip="title: Notifications">
                             <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path></svg>
-                            <span>3</span>
+                            <span>{{ notification.count }}</span>
                         </a>
                         <div uk-drop="mode: click" class="header_dropdown">
                             <div class="dropdown_scrollbar" data-simplebar>
@@ -291,36 +291,69 @@
                                     </div>
                                 </div>
                                 <ul>
-                                    <li>
-                                        <a href="#">
-                                            <div class="drop_avatar">
-                                                <img src="{% static 'assets/images/avatars/avatar-1.jpg' %}" alt="">
-                                            </div>
-                                            <span class="drop_icon bg-gradient-primary">
-                                                    <i class="icon-feather-thumbs-up"></i>
+                                    
+                                    {% for n in notification %}
+                                        <li class="{% if n.is_read == False %}not-read{% endif %} mb-3 mt-3">
+                                            <a href="#">
+                                                <div class="drop_avatar">
+                                                    <img src="{{n.sender.profile.image.url}}" alt="">
+                                                </div>
+                                                <span class="drop_icon bg-gradient-primary">
+                                                    
+                                                    {% if n.notification_type == "New Like" %}<i class="icon-feather-thumbs-up"></i>{% endif %}
+                                                    {% if n.notification_type == "New Comment" %}<i class="icon-feather-message-square"></i>{% endif %}
+                                                    {% if n.notification_type == "Comment Liked" %}<i class="icon-feather-thumbs-up"></i>{% endif %}
+                                                    {% if n.notification_type == "Comment Replied" %}<i class="icon-feather-message-square"></i>{% endif %}
+                                                    {% if n.notification_type == "New Follower" %}<i class="icon-feather-user-plus"></i>{% endif %}
+                                                    {% if n.notification_type == "New Follower" %}<i class="icon-feather-user-plus"></i>{% endif %}
+                                                    {% if n.notification_type == "Friend Request Accepted" %}<i class="icon-feather-check-circle"></i>{% endif %}
+                                                    {% if n.notification_type == "Friend Request" %}<i class="icon-feather-user-plus"></i>{% endif %}
+                                                        
                                                 </span>
-                                            <div class="drop_text">
-                                                <p>
-                                                    <strong>Adrian Mohani</strong> Like Your Comment On Video
-                                                    <span class="text-link">Learn Prototype Faster </span>
-                                                </p>
-                                                <time> 2 hours ago </time>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="not-read">
+                                                <div class="drop_text">
+                                                    <p>
+                                                        <strong>{{n.sender.profile.full_name|title}}</strong> 
+                                                        
+                                                        {% if n.notification_type == "New Like" %} Liked your post {% endif %}
+
+                                                        {% if n.notification_type == "New Comment" %} Commented on your post {% endif %}
+
+                                                        {% if n.notification_type == "Comment Liked" %} Liked your comment on {% endif %}
+
+                                                        {% if n.notification_type == "Comment Replied" %} Replied your comment on {% endif %}
+
+                                                        {% if n.notification_type == "New Follower" %} Just Followed You {% endif %}
+
+                                                        {% if n.notification_type == "Friend Request Accepted" %} Accepted Your Friend Request {% endif %}
+
+                                                        {% if n.notification_type == "Friend Request" %} Sent you a friend Request  {% endif %}
+                                                        
+                                                        
+                                                        {% if n.post %}
+                                                        <span class="text-link">{{ n.post.title }} </span>
+                                                        {% endif %}
+                                                            
+                                                    </p>
+                                                    <time> <small>{{n.date|timesince}} ago</small> </time>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+
+                                    <!-- <li class="not-read">
                                         <a href="#">
-                                            <div class="drop_avatar status-online"> <img src="{% static 'assets/images/avatars/avatar-2.jpg' %}" alt="">
+                                            <div class="drop_avatar status-online"> <img src="{{request.user.profile.image.url}}" alt="">
                                             </div>
                                             <div class="drop_text">
                                                 <p>
-                                                    <strong>Stella Johnson</strong> Replay Your Comments in
-                                                    <span class="text-link">Adobe XD Tutorial</span>
+                                                    <strong>{{request.user.profile.full_name}}</strong> Replay Your Comments in
+                                                    <span class="text-link">{{request.user.profile.bio|title}}</span>
                                                 </p>
                                                 <time> 9 hours ago </time>
                                             </div>
                                         </a>
-                                   
+                                    </li> -->
+                                    
                                 </ul>
                             </div>
                         </div>

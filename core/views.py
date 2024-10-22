@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 
-from core.models import Comment, FriendRequest, Post, ReplyComment
+from core.models import Comment, FriendRequest, Notification, Post, ReplyComment
 import shortuuid
 from django.utils.text import slugify
 from django.utils.timesince import timesince
@@ -12,6 +12,16 @@ from django.contrib.auth.decorators import login_required
 from userauths.models import User
 
 
+
+
+# Notifications Keys
+noti_new_like = "New Like"
+noti_new_follower = "New Follower"
+noti_friend_request = "Friend Request"
+noti_new_comment = "New Comment"
+noti_comment_liked = "Comment Liked"
+noti_comment_replied = "Comment Replied"
+noti_friend_request_accepted = "Friend Request Accepted"
 
 
 
@@ -34,6 +44,21 @@ def post_detail(request, slug):
         "p":post
     }
     return render(request, "core/post-detail.html", context)
+
+
+
+def send_notification(user, sender, post, comment, notification_type):
+    notification = Notification.objects.create(
+        user=user, 
+        sender=sender, 
+        post=post, 
+        comment=comment, 
+        notification_type=notification_type
+    )
+    return notification
+
+
+
 
 
 
@@ -90,6 +115,9 @@ def like_post(request):
     else:
         post.likes.add(user)
         bool = True 
+        # Do this during noticiation lecture
+        if post.user != request.user:
+            send_notification(post.user, user, post, None, noti_new_like)
         
     data = {
         "bool":bool,
@@ -238,6 +266,45 @@ def accept_friend_request(request):
     
     return JsonResponse({'data': data})
 
+
+
+
+@csrf_exempt
+def reject_friend_request(request):
+    id = request.GET['id'] 
+
+    receiver = request.user
+    sender = User.objects.get(id=id)
+    
+    friend_request = FriendRequest.objects.filter(receiver=receiver, sender=sender).first()
+    friend_request.delete()
+
+    data = {
+        "message":"Rejected",
+        "bool":True,
+    }
+    return JsonResponse({'data': data})
+
+
+
+@csrf_exempt
+def unfriend(request):
+    sender = request.user
+    friend_id = request.GET['id'] 
+    bool = False
+
+    if sender.id == int(friend_id):
+        return JsonResponse({'error': 'You cannot unfriend yourself, wait a minute how did you even send yourself a friend request?.'})
+    
+    my_friend = User.objects.get(id=friend_id)
+    
+    if my_friend in sender.profile.friends.all():
+        sender.profile.friends.remove(my_friend)
+        my_friend.profile.friends.remove(sender)
+        bool = True
+        return JsonResponse({'success': 'Unfriend Successfull',  'bool':bool})
+    
+   
 
 
 
