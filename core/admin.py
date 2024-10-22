@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from core.models import Comment, Friend, FriendRequest, Gallery, Group, GroupPost, Notification, Page, PagePost, Post, ReplyComment
+from core.models import ChatMessage, Comment, Friend, FriendRequest, Gallery, Group, GroupPost, Notification, Page, PagePost, Post, ReplyComment
 
 
 
@@ -57,7 +57,11 @@ class PageAdmin(admin.ModelAdmin):
     list_display = ['thumbnail', 'user', 'name', 'visibility']
     prepopulated_fields = {"slug": ("name", )}
 
-
+class ChatMessageAdmin(admin.ModelAdmin):
+    list_display = ['user', 'sender', 'reciever' ,'message','date', 'is_read']
+   
+   
+   
 
 admin.site.register(Post,PostAdmin)
 admin.site.register(Gallery,GalleryAdmin)
@@ -70,3 +74,7 @@ admin.site.register(Group, GroupAdmin)
 admin.site.register(Page, PageAdmin)
 admin.site.register(GroupPost)
 admin.site.register(PagePost)
+admin.site.register(ChatMessage, ChatMessageAdmin)
+
+
+

@@ -168,9 +168,7 @@ class Notification(models.Model):
         return f"{self.user.username} - {self.notification_type}"
     
     
-    
-    
-    
+
     
 class Group(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
@@ -297,3 +295,24 @@ class PagePost(models.Model):
         return mark_safe('<img src="/media/%s" width="50" height="50" object-fit:"cover" style="border-radius: 5px;" />' % (self.image))
     
     
+    
+class ChatMessage(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="chat_user")
+    sender = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="sender")
+    reciever = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="reciever")
+    message = models.CharField(max_length=10000000000)
+    is_read = models.BooleanField(default=False)
+    date = models.DateTimeField(auto_now_add=True)
+    mid = ShortUUIDField(length=10, max_length=25, alphabet="abcdefghijklmnopqrstuvxyz")
+    
+    def __str__(self):
+        return self.user.username
+    
+    class Meta:
+        ordering = ["-date"]
+        verbose_name_plural = "Personal Chat"
+
+    def thumbnail(self):
+        return mark_safe('<img src="/media/%s" width="50" height="50" object-fit:"cover" style="border-radius: 5px;" />' % (self.image))
+    
+ 
