@@ -28,6 +28,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# 
+ASGI_APPLICATION = 'fbpj.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
 
 # Application definition
 
@@ -49,6 +57,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'import_export',
     'taggit',
+    'channels'
 ]
 
 MIDDLEWARE = [
