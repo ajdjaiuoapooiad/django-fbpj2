@@ -10,6 +10,7 @@ urlpatterns = [
 
      # Chat Feature
     path("core/inbox/", views.inbox, name="inbox"),
+    path("core/inbox/<username>/", views.inbox_detail, name="inbox_detail"),
 
     
     # Ajax URL
