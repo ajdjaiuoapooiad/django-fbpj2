@@ -13,6 +13,10 @@
 
 
                 <div class="messages-inbox">
+
+
+
+
                     <div class="messages-headline">
                         <div class="input-with-icon" hidden>
                             <input id="autocomplete-input" type="text" placeholder="Search">
@@ -21,14 +25,22 @@
                         <h2 class="text-2xl font-semibold">Chats</h2>
                         <span class="absolute icon-feather-edit mr-4 text-xl uk-position-center-right cursor-pointer"></span>
                     </div>
+
+
+
+
+
+                    <!--Message inner    -------------------------->
                     <div class="messages-inbox-inner" data-simplebar>
                         <ul>
                             
                             {% for m in chat_message %}
                                 {% if request.user == m.sender %}
                                     <li>
-                                        <a href="">
-                                            <div class="message-avatar"><i class="status-icon status-online"></i><img src="{{m.reciever.profile.image.url}}" alt=""></div>
+                                        <a href="{% url 'core:inbox_detail' m.reciever.username %}">
+                                            <div class="message-avatar">
+                                                <i class="status-icon status-online"></i><img src="{{m.reciever.profile.image.url}}" alt="">
+                                            </div>
 
                                             <div class="message-by">
                                                 <div class="message-by-headline">
